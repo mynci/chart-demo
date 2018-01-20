@@ -1,7 +1,0 @@
-syntax: glob
-*.pyc
-.git*
-.project
-.pydevproject
-.nfs*
-.settings*
