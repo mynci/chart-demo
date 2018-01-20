@@ -1,0 +1,9 @@
+data/mpl_example.py.i
+data/lib/base.py.i
+data/.hgignore.i
+data/pyqtgraph_example.py.i
+data/lib/groupby.py.i
+data/lib/__init__.py.i
+data/lib/met_office_tools.py.i
+data/__init__.py.i
+data/lib/file_reader.py.i
