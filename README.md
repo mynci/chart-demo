@@ -27,8 +27,8 @@ or
 pyqtgrah_example.py (simple interactive chart) 
 
 I realise that everything the data processing side of this tool can do could 
-be done much more quickly, with very little code. However, the intent was to 
-demonstrate how a more generic framework could be greated that could process
+be produced much more quickly, with very little code. However, the intent was to 
+demonstrate how a more generic framework could be created that could process
 different file types, or data from different files or URLs etc. 
 
 This has been written and tested using XUbuntu 16.04 and Python 3.5.
