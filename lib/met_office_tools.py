@@ -12,7 +12,8 @@ PandasFileReader.
 
 def is_numeric(test_str):
     '''
-    Simpistic, if not especially fast detection of valid numeric string
+    Simpistic, if not especially fast detection of string that could be
+    converted to a numeric type
     '''
     result = True
     if not isinstance(test_str, str):
@@ -55,13 +56,14 @@ class MetOfficeFileReader(PandasFileReader):
         if self.file_path is None:
             return False
 
+        # Find out where the data starts and then let Pandas read the file.
         skip_n_rows = self.find_first_valid_data()
 
         df = pd.read_csv(self.file_path, names=self.headers,
                          skiprows=skip_n_rows, *self.args, **self.kwargs)
 
         # I know that there are some non numeric characters appended to the
-        # sun_hours column, lets manually filter these out explicitly.
+        # sun_hours column, lets manually remove these explicitly.
         df["sun_hours"] = df["sun_hours"].str.replace('#', '')
         df["sun_hours"] = df["sun_hours"].str.replace('*', '')
 

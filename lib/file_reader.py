@@ -1,38 +1,21 @@
 # -*- coding: utf-8 -*-
 import os
 from datetime import datetime
-import matplotlib.pyplot as plt
 
 import pandas as pd
-from .base import DataReaderBase, SimpleLoggingObject
+
+from .base import DataReaderBase
 
 
 '''
-Code example written by Stephen Kemp.
+File reading specific objects. Includes a base file reader DataFileReader
+that deals with basic path handling and builds QA data.
 
-This code was written from scratch with an arbitrary time limit of ~8 hours.
-A lot more can and would be done to fully generalise and extend the code,
-Hopefully this demonstrates the intent and my coding style sufficiently.
+The PandasFileReader is a specialisation of the file reader that will read a
+file to a DataFrame
 
-I have not put any formal docstring comments in as they are so dependant on the 
-documentation system that might be used. Therefore I have simply put a simple 
-explanation of what all but the most trivial methods do.
-
-This is a simple demonstration of a tool that can:
-- Read an input data file or URL into a pandas dataframe
-- Perform some grouping and aggregation of the dataset
-- Display a graph of the grouped and filtered data
-
-This has been written and tested using XUbuntu 16.04 and Python 3.5.
-
-It requires the following libraries:
-
-pyqt5
-pyqtgraph
-pandas
-
-All availible via pip, eg:
-sudo pip install pyqt5 pyqtgraph pandas 
+It is intended that the parent DataReaderBase could be branched off into, say,
+a URL reader or other non-file data source.
 
 '''
 
@@ -54,7 +37,8 @@ class DataFileReader(DataReaderBase):
 
     def build_qa_data(self):
         '''
-        Build some basic QA data
+        Build some basic QA data, there is a lot more we could add here
+        depending on the use case.
         '''
         qa_data = {}
 
@@ -99,7 +83,7 @@ class PandasFileReader(DataFileReader):
     '''
     Subclass of the standard file reader, this is specialised to use pandas CSV
     reading routines. In some future, extended framework new file reading
-    methods could be implemented at this level of the object hierarchy
+    methods could be implemented at this level of the object hierarchy.
     '''
     def __init__(self, file_path, *args, **kwargs):
 
@@ -112,13 +96,15 @@ class PandasFileReader(DataFileReader):
         return None
 
     def read(self):
-
+        # get pandas to perform the read, note we do not check the args or
+        # kwargs but Pandas will report any errors. Future versions may check
+        # these upfront or allow more specific access to arguments of read_csv
         self.data = pd.read_csv(self.file_path, *self.args, **self.kwargs)
 
         return None
 
     def get_dataframe(self):
-
+        # Only parse the file if we need to.
         if not isinstance(self.data, pd.DataFrame):
             self.read()
 
