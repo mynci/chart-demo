@@ -19,7 +19,7 @@ This is a simple demonstrator that can:
 - Read an input data file into a pandas dataframe
 - Perform some grouping and pre/post-processing on the data set
 - Display a static graph of the grouped and filtered data in matplotlib
-- Display an interactive graph of the grouped and filtered data in matplotlib
+- Display an interactive graph of the grouped and filtered data in pyqtgraph (Qt5)
 
 To execute the code run one of:
 mpl_example.py (simplistic matplotlib example) 
